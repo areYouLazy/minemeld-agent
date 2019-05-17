@@ -60,4 +60,6 @@ Usage of minemeld-agent:
         Set the output interface for log
   -url-file string
         PATH of the JSON file containing urls. (default "urls.json")
+  -webserver-port int
+        Specify port for WebServer (default 9000)
 ```
