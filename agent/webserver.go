@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"time"
 
 	"github.com/areYouLazy/minemeld-agent/log"
@@ -24,7 +25,7 @@ func WebServerInit() {
 
 	srv := &http.Server{
 		Handler: router,
-		Addr:    ":9000",
+		Addr:    ":" + strconv.Itoa(*Opt.Port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
