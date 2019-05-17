@@ -1,6 +1,6 @@
 # MineMeld-Agent
 
-This tool has been writted to address the need to query MineMeld for a specific IP address to know if it matches a MineMeld list
+This tool has been written to address the need to query MineMeld for a specific IP address to know if it matches a MineMeld list
 
 ## Composition
 
@@ -53,7 +53,7 @@ Usage of minemeld-agent:
   -insecure
         Set to true to ignore certificate errors
   -log-colors
-        Set to false to turn of colored log output (default true)
+        Set to false to turn off colored log output (default true)
   -log-debug
         Set true to print debug message
   -log-output string
