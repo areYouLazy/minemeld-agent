@@ -25,8 +25,10 @@ var (
 func Fetch(url string) ([]byte, error) {
 	log.Info("Fetching list from %s", log.Bold(url))
 
-	//this prevents error because of insecure certificate
-	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	if *Opt.Insecure == true {
+		//this prevents error because of insecure certificate
+		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
 
 	//Query given URL
 	resp, err := http.Get(url)

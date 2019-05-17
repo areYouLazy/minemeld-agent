@@ -11,14 +11,15 @@ var (
 
 //Options holds value of flags from CLI
 type Options struct {
-	IP      *string
-	URLFile *string
+	URLFile  *string
+	Insecure *bool
 }
 
 //ParseOptions parse given options from CLI
 func ParseOptions() {
 	opt := &Options{
-		URLFile: flag.String("url-file", "urls.json", "Path of the JSON file containing urls"),
+		URLFile:  flag.String("url-file", "urls.json", "Path of the JSON file containing urls"),
+		Insecure: flag.Bool("insecure", false, "Set to true to ignore certificate errors"),
 	}
 
 	//parse fags
