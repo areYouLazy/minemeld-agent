@@ -1,6 +1,7 @@
 package agent
 
 import (
+	"crypto/tls"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -23,6 +24,9 @@ var (
 //Fetch get list from minemeld url and returns request body
 func Fetch(url string) ([]byte, error) {
 	log.Info("Fetching list from %s", log.Bold(url))
+
+	//this prevents error because of insecure certificate
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 
 	//Query given URL
 	resp, err := http.Get(url)
