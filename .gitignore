@@ -1,0 +1,9 @@
+# Exclude binary file
+minemeld-agent
+
+# Exclude json files
+*.json
+
+# Exclude .DS_Store
+.DS_Store
+
