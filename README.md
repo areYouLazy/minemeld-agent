@@ -50,6 +50,8 @@ By design fetch is done for every URL, every 10 seconds
 
 ```text
 Usage of minemeld-agent:
+  -insecure
+        Set to true to ignore certificate errors
   -log-colors
         Set to false to turn of colored log output (default true)
   -log-debug
