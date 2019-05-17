@@ -1,22 +1,22 @@
 [
     {
         "type": "ipv4",
-        "endpoint": "https://minemeld.contoso.ltd/feeds/office365_IPv4s",
+        "endpoint": "https://minemeld.example.org/feeds/office365_IPv4s",
         "description": "minemeld ipv4 feed for Office365"
     },
     {
         "type": "ipv6",
-        "endpoint": "https://minemeld.contoso.ltd/feeds/office365_IPv6s",
+        "endpoint": "https://minemeld.example.org/feeds/office365_IPv6s",
         "description": "minemeld ipv6 feed for Office365"
     },
     {
         "type": "fqdn",
-        "endpoint": "https://minemeld.contoso.ltd/feeds/office365_URLs",
+        "endpoint": "https://minemeld.example.org/feeds/office365_URLs",
         "description": "minemeld fqdn feed for Office365"
     },
     {
         "type": "alias",
-        "endpoint": "http://minemeld.contoso.ltd/list",
+        "endpoint": "http://minemeld.example.org/list",
         "description": "fake endpoint to test for endpoint exclusion"
     }
 ]

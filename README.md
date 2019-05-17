@@ -17,7 +17,7 @@ GET /api/v1/check-ipv4/1.1.1.1
 
 GET /api/v1/check-ipv6/::1
 
-GET /api/v1/check-fqdn/contoso.ltd
+GET /api/v1/check-fqdn/example.org
 ```
 
 ## Configuration
@@ -28,7 +28,7 @@ Endpoint Must be written in the urls.json (or in a custom JSON file) in the form
 [
     {
         "type": "ipv4",
-        "endpoint": "https://minemeld.contoso.ltd/feeds/office365_IPv4s",
+        "endpoint": "https://minemeld.example.org/feeds/office365_IPv4s",
         "description": "minemeld ipv4 feed for Office365"
     }
 ]
