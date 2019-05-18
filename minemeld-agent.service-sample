@@ -1,0 +1,14 @@
+[Unit]
+Description=MineMeld-Agent Service Daemon
+After=network.target
+
+[Service]
+Type=simple
+# Set your working directory
+WorkingDirectory=/opt/minemeld-agent/
+# Set your init options here
+ExecStart=/opt/minemeld-agent/minemeld-agent -fetch-insecure -log-colors -log-debug -log-output=/var/log/minemeld-agent.log -url-file=/opt/minemeld-agent/urls.json -webserver-port=9000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

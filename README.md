@@ -35,6 +35,14 @@ You can download MineMeld-Agent with the command
 root@localhost:> go get github.com/areYouLazy/minemeld-agent
 ```
 
+Go inside MineMeld-Agent folder and compile it
+
+```bash
+root@localhost:> go build
+````
+
+And you\'re ready to go
+
 MineMeld-Agent can run on the MineMeld machine itself, or in a separate linux machine, just make sure URL in the urls.json file are resolvable (if you're using FQDN) and to use the `-fetch-insecure` flag if MineMeld does not provide a valid certificate.
 
 By default MineMeld-Agent logs to stdout so you can check that everything is working file.
