@@ -22,6 +22,7 @@ func CheckIPv4(address string) bool {
 	}
 
 	for _, v := range IPv4List {
+		//Check if line is in format of startIP-endIP
 		if strings.Contains(v, "-") {
 			vals := strings.Split(v, "-")
 			StartIP := net.ParseIP(vals[0])
@@ -29,8 +30,13 @@ func CheckIPv4(address string) bool {
 			if bytes.Compare(IP, StartIP) >= 0 && bytes.Compare(IP, EndIP) <= 0 {
 				isInList = true
 			}
+			//Check if line is in format ip/mask
 		} else if strings.Contains(v, "/") {
-			//TODO: Implement logic to support x.x.x.x/y network format
+			_, net, _ := net.ParseCIDR(v)
+			res := net.Contains(IP)
+			if res == true {
+				isInList = true
+			}
 		}
 	}
 
