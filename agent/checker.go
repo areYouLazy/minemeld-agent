@@ -29,6 +29,8 @@ func CheckIPv4(address string) bool {
 			if bytes.Compare(IP, StartIP) >= 0 && bytes.Compare(IP, EndIP) <= 0 {
 				isInList = true
 			}
+		} else if strings.Contains(v, "/") {
+			//TODO: Implement logic to support x.x.x.x/y network format
 		}
 	}
 

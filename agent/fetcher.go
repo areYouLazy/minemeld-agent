@@ -39,6 +39,10 @@ func Fetch(url string) ([]byte, error) {
 	//Close body after call ends
 	defer resp.Body.Close()
 
+	if resp.StatusCode != 200 {
+		return nil, err
+	}
+
 	//parse body to bytes
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -63,16 +67,18 @@ func FetchEndpoints() {
 				log.Critical("%s", err)
 			} else if res := Validate(lst); res == true {
 				log.Info("Parsing response from %s", log.Bold(v.Endpoint))
+				parsedList := Parse(lst)
+
 				switch {
 				case v.Type == "ipv4":
-					IPv4List = Parse(lst)
+					IPv4List = parsedList
 				case v.Type == "ipv6":
-					IPv6List = Parse(lst)
+					IPv6List = parsedList
 				case v.Type == "fqdn":
-					FQDNList = Parse(lst)
+					FQDNList = parsedList
 				}
 
-				log.Debug("Found %s entry in list %s", log.Bold(strconv.Itoa(len(lst))), log.Bold(v.Endpoint))
+				log.Debug("Found %s entry in list %s", log.Bold(strconv.Itoa(len(parsedList))), log.Bold(v.Endpoint))
 			} else {
 				log.Warning("Validation failed for Endpoint %s", log.Bold(v.Endpoint))
 			}

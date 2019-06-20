@@ -18,14 +18,15 @@ func Validate(list []byte) bool {
 }
 
 //Parse turns a list of IP from Minemeld as []string or error
-func Parse(list []byte) []string {
+func Parse(lst []byte) []string {
 	errorString := regexp.MustCompile(`Unknown\sfeed`)
-	res := errorString.Match(list)
+	res := errorString.Match(lst)
 	if res == true {
 		return nil
 	}
 
-	addressList := strings.Split(string(list), "\n")
+	stringList := string(lst)
+	addressList := strings.Split(stringList, "\n")
 
 	return addressList
 }
