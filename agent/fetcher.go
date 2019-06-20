@@ -30,6 +30,9 @@ func Fetch(url string) ([]byte, error) {
 		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 
+	//set a global timeout for GET calls
+	http.DefaultClient.Timeout = time.Duration(3 * time.Second)
+
 	//Query given URL
 	resp, err := http.Get(url)
 	if err != nil {
@@ -59,6 +62,9 @@ func FetchEndpoints() {
 		//check urls.json for changes
 		Loader()
 
+		//reset lists to avoid duplicates
+		IPv4List, IPv6List, FQDNList = nil, nil, nil
+
 		log.Debug("Iterate Endpoints to fetch address list")
 		//iterate endpoints to fetch address
 		for _, v := range Endpoints {
@@ -71,11 +77,11 @@ func FetchEndpoints() {
 
 				switch {
 				case v.Type == "ipv4":
-					IPv4List = parsedList
+					IPv4List = append(IPv4List, parsedList...)
 				case v.Type == "ipv6":
-					IPv6List = parsedList
+					IPv6List = append(IPv6List, parsedList...)
 				case v.Type == "fqdn":
-					FQDNList = parsedList
+					FQDNList = append(FQDNList, parsedList...)
 				}
 
 				log.Debug("Found %s entry in list %s", log.Bold(strconv.Itoa(len(parsedList))), log.Bold(v.Endpoint))
