@@ -137,13 +137,13 @@ Usage of minemeld-agent:
 The idea is to make the agent able to split lists by name, so that you can query a specific IP to know if it is part of a specific list.
 
 ```bash
-root@localhost:> curl http://minemeld-agent.local/api/v1/192.168.1.1/microsoft
+root@localhost:> curl http://minemeld.example.org/api/v1/192.168.1.1/microsoft
 address 192.186.1.1 is not in microsoft list
 ```
 
 In this way you can know if the ip 192.168.1.1 is part of the microsoft list, but 192.168.1.1 can be part of another list, like "VIP Users", so query for that lists returns a positive match
 
 ```bash
-root@localhost:> curl http://minemend-agent.local/api/v1/192.168.1.1/vip-users
+root@localhost:> curl http://minemeld.example.org/api/v1/192.168.1.1/vip-users
 address 192.168.1.1 is in vip-users list
 ```
