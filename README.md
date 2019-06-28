@@ -111,8 +111,8 @@ To add a single IP you can use the following syntax:
 
 FQDN supports wildcards
 
-- *.contoso.ltd
-- www.contoso.ltd
+- *.example.org
+- minemeld.example.org
 
 ## Help
 
