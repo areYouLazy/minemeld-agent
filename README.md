@@ -19,12 +19,14 @@ This is useful in cases where you cannot filter a NAT/Firewall Rules because it 
 
 ## WebServer API
 
-```text
+```bash
 GET /api/v1/check-ipv4/1.1.1.1
 
 GET /api/v1/check-ipv6/::1
 
 GET /api/v1/check-fqdn/example.org
+
+GET /api/v1/check-ipv4/1.1.1.1/anchor
 ```
 
 ## Installation
