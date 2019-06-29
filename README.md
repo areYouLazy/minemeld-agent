@@ -27,6 +27,10 @@ GET /api/v1/check-ipv6/::1
 GET /api/v1/check-fqdn/example.org
 
 GET /api/v1/check-ipv4/1.1.1.1/anchor
+
+GET /api/v1/check-ipv6/::1/anchor
+
+GET /api/v1/check-fqdn/example.org/anchor
 ```
 
 ## Installation
