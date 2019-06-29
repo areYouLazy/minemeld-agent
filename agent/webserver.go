@@ -18,6 +18,7 @@ func WebServerInit() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/v1/check-ipv4/{address}", HandleCheckIPv4).Methods("GET")
+	router.HandleFunc("/api/v1/check-ipv4/{address}/{anchor}", HandleCheckIPv4).Methods("GET")
 	router.HandleFunc("/api/v1/check-ipv6/{address}", HandleCheckIPv6).Methods("GET")
 	router.HandleFunc("/api/v1/check-fqdn/{address}", HandleCheckFqdn).Methods("GET")
 
@@ -75,15 +76,25 @@ func HandleCheckIPv4(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	address := vars["address"]
+	anchor := vars["anchor"]
 
-	res := CheckIPv4(address)
+	res := CheckIPv4(address, anchor)
 
 	var payload string
 
 	if res == true {
-		payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
+		if anchor == "" {
+			payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
+		} else {
+			payload = fmt.Sprintf("Address %s is in list %s", log.Bold(address), log.Bold(anchor))
+		}
 	} else {
-		payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
+		if anchor == "" {
+			payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
+		} else {
+			payload = fmt.Sprintf("Address %s is not in list %s", log.Bold(address), log.Bold(anchor))
+		}
+
 	}
 
 	log.Debug(payload)

@@ -2,17 +2,26 @@
     {
         "type": "ipv4",
         "endpoint": "https://minemeld.example.org/feeds/office365_IPv4s",
-        "description": "minemeld ipv4 feed for Office365"
+        "description": "minemeld ipv4 feed for Office365",
+        "anchor": "O365"
     },
     {
         "type": "ipv6",
         "endpoint": "https://minemeld.example.org/feeds/office365_IPv6s",
-        "description": "minemeld ipv6 feed for Office365"
+        "description": "minemeld ipv6 feed for Office365",
+        "anchor": "O365"
     },
     {
         "type": "fqdn",
         "endpoint": "https://minemeld.example.org/feeds/office365_URLs",
-        "description": "minemeld fqdn feed for Office365"
+        "description": "minemeld fqdn feed for Office365",
+        "anchor": "O365"
+    },
+    {
+        "type": "ipv4",
+        "endpoint": "http://localhost:9001/resources/custom-ip-list.html",
+        "description": "Custom List",
+        "anchor": "custom-ipv4-list"
     },
     {
         "type": "alias",

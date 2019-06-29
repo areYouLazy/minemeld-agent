@@ -50,29 +50,33 @@ root@localhost:> go build
 
 And you\'re ready to go
 
-MineMeld-Agent can run on the MineMeld machine itself, or in a separate linux machine, just make sure URL in the urls.json file are resolvable (if you\'re using FQDN) and to use the `-fetch-insecure` flag if MineMeld does not provide a valid certificate.
+MineMeld-Agent can run on the MineMeld machine itself, or in a separate linux machine, just make sure URLs in the urls.json file are resolvable (if you\'re using FQDN) and to use the `-fetch-insecure` flag if the endpoint does not provide a valid certificate.
 
 By default MineMeld-Agent logs to stdout so you can check that everything is working file.
 You can than redirect logs to your preferred file with the `-log-output` flag
 
 ## Configuration
 
-Endpoint Must be written in the urls.json (or in a custom JSON file) in the format of
+Endpoint must be written in the urls.json (or in a custom JSON file) in the format of
 
 ```json
 [
     {
         "type": "ipv4",
         "endpoint": "https://minemeld.example.org/feeds/office365_IPv4s",
-        "description": "MineMeld IPv4 feed for Office365"
+        "description": "MineMeld IPv4 feed for Office365",
+        "anchor": "microsoft"
     },
     {
         "type": "ipv6",
         "endpoint": "https://minemeld.example.org/feeds/office365_IPv6s",
-        "description": "MineMeld IPv6 feed for Office365"
+        "description": "MineMeld IPv6 feed for Office365",
+        "anchor": "microsoft"
     }
 ]
 ```
+
+`type` and `endpoint` are required fields
 
 Valid Entpoint types are:
 
@@ -95,7 +99,8 @@ To add a list compile the urls.json file with the endpoint url
 {
   "type": "ipv4",
   "endpoint": "http://my.custome.endpoint/ip-list.html",
-  "description": "Custom List"
+  "description": "Custom List",
+  "anchor": "custom-ipv4-list"
 }
 ```
 
@@ -113,6 +118,25 @@ FQDN supports wildcards
 
 - *.example.org
 - minemeld.example.org
+
+### Anchor
+
+Anchor is used to create a label for all the IP/FQDN in a specific list
+You can query MineMeld-Agent for a specific Anchor
+
+If a list is defined with an anchor like `microsoft` you can query like this
+
+```bash
+root@localhost:> curl http://minemeld.example.org/api/v1/check-ipv4/192.168.1.1/microsoft
+Address 192.168.1.1 is not in microsoft list
+```
+
+If you query without an anchor, the match is done against any list of that type
+
+```bash
+root@localhost:> curl http://minemeld.example.org/api/v1/check-ipv4/192.168.1.1
+Address 192.168.1.1 is not in list
+```
 
 ## Help
 
@@ -132,18 +156,6 @@ Usage of minemeld-agent:
         Specify port for WebServer (default 9000)
 ```
 
-## ToDo
+## Work in Progress
 
-The idea is to make the agent able to split lists by name, so that you can query a specific IP to know if it is part of a specific list.
-
-```bash
-root@localhost:> curl http://minemeld.example.org/api/v1/192.168.1.1/microsoft
-address 192.186.1.1 is not in microsoft list
-```
-
-In this way you can know if the ip 192.168.1.1 is part of the microsoft list, but 192.168.1.1 can be part of another list, like "VIP Users", so query for that lists returns a positive match
-
-```bash
-root@localhost:> curl http://minemeld.example.org/api/v1/192.168.1.1/vip-users
-address 192.168.1.1 is in vip-users list
-```
+- Anchor is supported only for IPv4 lists

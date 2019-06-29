@@ -12,7 +12,7 @@ import (
 
 var (
 	//IPv4List exposes ipv4 fetched from MineMeld
-	IPv4List []string
+	IPv4List []map[string]string
 
 	//IPv6List exposes ipv4 fetched from MineMeld
 	IPv6List []string
@@ -77,7 +77,11 @@ func FetchEndpoints() {
 
 				switch {
 				case v.Type == "ipv4":
-					IPv4List = append(IPv4List, parsedList...)
+					for _, l := range parsedList {
+						p := map[string]string{v.Anchor: l}
+						IPv4List = append(IPv4List, p)
+					}
+					//IPv4List = append(IPv4List, parsedList...)
 				case v.Type == "ipv6":
 					IPv6List = append(IPv6List, parsedList...)
 				case v.Type == "fqdn":

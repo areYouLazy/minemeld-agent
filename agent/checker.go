@@ -10,8 +10,12 @@ import (
 )
 
 //CheckIPv4 check if a given address is in IPv4List
-func CheckIPv4(address string) bool {
-	log.Debug("Received query for IPv4 address %s", log.Bold(address))
+func CheckIPv4(address, anchor string) bool {
+	if anchor != "" {
+		log.Debug("Received query for IPv4 address %s on list %s", log.Bold(address), log.Bold(anchor))
+	} else {
+		log.Debug("Received query for IPv4 address %s", log.Bold(address))
+	}
 
 	isInList := false
 
@@ -21,21 +25,32 @@ func CheckIPv4(address string) bool {
 		return isInList
 	}
 
-	for _, v := range IPv4List {
-		//Check if line is in format of startIP-endIP
-		if strings.Contains(v, "-") {
-			vals := strings.Split(v, "-")
-			StartIP := net.ParseIP(vals[0])
-			EndIP := net.ParseIP(vals[1])
-			if bytes.Compare(IP, StartIP) >= 0 && bytes.Compare(IP, EndIP) <= 0 {
-				isInList = true
+	//iterate list
+	for _, payload := range IPv4List {
+		//split payload in anchor and ip
+		for k, v := range payload {
+			//Check if line is in format of startIP-endIP
+			if strings.Contains(v, "-") {
+				vals := strings.Split(v, "-")
+				StartIP := net.ParseIP(vals[0])
+				EndIP := net.ParseIP(vals[1])
+				if bytes.Compare(IP, StartIP) >= 0 && bytes.Compare(IP, EndIP) <= 0 {
+					isInList = true
+				}
+				//Check if line is in format ip/mask
+			} else if strings.Contains(v, "/") {
+				_, net, _ := net.ParseCIDR(v)
+				res := net.Contains(IP)
+				if res == true {
+					isInList = true
+				}
 			}
-			//Check if line is in format ip/mask
-		} else if strings.Contains(v, "/") {
-			_, net, _ := net.ParseCIDR(v)
-			res := net.Contains(IP)
-			if res == true {
-				isInList = true
+
+			//check if we have an anchor to match
+			if anchor != "" {
+				if anchor != k {
+					isInList = false
+				}
 			}
 		}
 	}
