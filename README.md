@@ -116,10 +116,13 @@ To add a single IP you can use the following syntax:
 - 192.168.1.1-192.168.1.1
 - 192.168.1.1/32
 
-FQDN supports wildcards
+FQDN supports wildcards, also note that FQDN comparsion is done by regulare expression
 
+- example.org
+- .example.org
 - *.example.org
 - minemeld.example.org
+- minemeld.example.org/data
 
 ### Anchor
 
