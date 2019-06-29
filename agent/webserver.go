@@ -20,7 +20,9 @@ func WebServerInit() {
 	router.HandleFunc("/api/v1/check-ipv4/{address}", HandleCheckIPv4).Methods("GET")
 	router.HandleFunc("/api/v1/check-ipv4/{address}/{anchor}", HandleCheckIPv4).Methods("GET")
 	router.HandleFunc("/api/v1/check-ipv6/{address}", HandleCheckIPv6).Methods("GET")
+	router.HandleFunc("/api/v1/check-ipv6/{address}/{anchor}", HandleCheckIPv6).Methods("GET")
 	router.HandleFunc("/api/v1/check-fqdn/{address}", HandleCheckFqdn).Methods("GET")
+	router.HandleFunc("/api/v1/check-fqdn/{address}/{anchor}", HandleCheckFqdn).Methods("GET")
 
 	router.Use(loggingMiddleware)
 
@@ -86,15 +88,14 @@ func HandleCheckIPv4(w http.ResponseWriter, r *http.Request) {
 		if anchor == "" {
 			payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
 		} else {
-			payload = fmt.Sprintf("Address %s is in list %s", log.Bold(address), log.Bold(anchor))
+			payload = fmt.Sprintf("Address %s is in %s list", log.Bold(address), log.Bold(anchor))
 		}
 	} else {
 		if anchor == "" {
 			payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
 		} else {
-			payload = fmt.Sprintf("Address %s is not in list %s", log.Bold(address), log.Bold(anchor))
+			payload = fmt.Sprintf("Address %s is not in %s list", log.Bold(address), log.Bold(anchor))
 		}
-
 	}
 
 	log.Debug(payload)
@@ -106,14 +107,23 @@ func HandleCheckIPv6(w http.ResponseWriter, r *http.Request) {
 	// vars := mux.Vars(r)
 
 	// address := vars["address"]
+	// anchor := vars["anchor"]
 
 	// res := CheckIPv6(address)
 
 	// var payload string
 	// if res == true {
-	// 	payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
+	// 	if anchor == "" {
+	// 		payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
+	// 	} else {
+	// 		payload = fmt.Sprintf("Address %s is in %s list", log.Bold(address), log.Bold(anchor))
+	// 	}
 	// } else {
-	// 	payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
+	// 	if anchor == "" {
+	// 		payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
+	// 	} else {
+	// 		payload = fmt.Sprintf("Address %s is not in %s list", log.Bold(address), log.Bold(anchor))
+	// 	}
 	// }
 
 	// log.Debug(payload)
@@ -127,14 +137,23 @@ func HandleCheckFqdn(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	address := vars["address"]
+	anchor := vars["anchor"]
 
-	res := CheckFQDN(address)
+	res := CheckFQDN(address, anchor)
 
 	var payload string
 	if res == true {
-		payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
+		if anchor == "" {
+			payload = fmt.Sprintf("Address %s is in list", log.Bold(address))
+		} else {
+			payload = fmt.Sprintf("Address %s is in %s list", log.Bold(address), log.Bold(anchor))
+		}
 	} else {
-		payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
+		if anchor == "" {
+			payload = fmt.Sprintf("Address %s is not in list", log.Bold(address))
+		} else {
+			payload = fmt.Sprintf("Address %s is not in %s list", log.Bold(address), log.Bold(anchor))
+		}
 	}
 
 	log.Debug(payload)

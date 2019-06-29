@@ -35,6 +35,7 @@ func CheckIPv4(address, anchor string) bool {
 				StartIP := net.ParseIP(vals[0])
 				EndIP := net.ParseIP(vals[1])
 				if bytes.Compare(IP, StartIP) >= 0 && bytes.Compare(IP, EndIP) <= 0 {
+					log.Debug("Found match with endpoint entry %s", log.Bold(v))
 					isInList = true
 				}
 				//Check if line is in format ip/mask
@@ -42,6 +43,7 @@ func CheckIPv4(address, anchor string) bool {
 				_, net, _ := net.ParseCIDR(v)
 				res := net.Contains(IP)
 				if res == true {
+					log.Debug("Found match with endpoint entry %s", log.Bold(v))
 					isInList = true
 				}
 			}
@@ -59,7 +61,7 @@ func CheckIPv4(address, anchor string) bool {
 }
 
 //CheckIPv6 check if a given address is in IPv6List
-func CheckIPv6(address string) bool {
+func CheckIPv6(address, anchor string) bool {
 	log.Debug("Received query for IPv6 address %s", log.Bold(address))
 
 	isInList := false
@@ -70,30 +72,32 @@ func CheckIPv6(address string) bool {
 		return isInList
 	}
 
-	for _, v := range IPv6List {
-		if strings.Contains(v, "-") {
-			vals := strings.Split(v, "-")
-			StartIP := net.ParseIP(vals[0])
-			EndIP := net.ParseIP(vals[1])
-			if bytes.Compare(IP, StartIP) >= 0 && bytes.Compare(IP, EndIP) <= 0 {
-				isInList = true
-			}
-		}
-	}
-
 	return isInList
 }
 
 //CheckFQDN check if a given address is in FQDNList
-func CheckFQDN(address string) bool {
+func CheckFQDN(address, anchor string) bool {
 	log.Debug("Received query for FQDN address %s", log.Bold(address))
 
 	isInList := false
 
-	for _, v := range FQDNList {
-		reg := regexp.MustCompile(address)
-		if reg.MatchString(v) {
-			isInList = true
+	//iterate list
+	for _, payload := range FQDNList {
+		//split payload in anchor and ip
+		for k, v := range payload {
+			reg := regexp.MustCompile(v)
+			if r := reg.MatchString(address); r == true {
+				log.Debug("Found match with endpoint entry %s", log.Bold(v))
+				isInList = true
+			}
+
+			//check if we have an anchor to match
+			if anchor != "" {
+				if anchor != k {
+					isInList = false
+				}
+			}
+
 		}
 	}
 

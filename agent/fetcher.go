@@ -15,10 +15,10 @@ var (
 	IPv4List []map[string]string
 
 	//IPv6List exposes ipv4 fetched from MineMeld
-	IPv6List []string
+	IPv6List []map[string]string
 
 	//FQDNList exposes names fetched form MineMeld
-	FQDNList []string
+	FQDNList []map[string]string
 )
 
 //Fetch get list from minemeld url and returns request body
@@ -81,11 +81,16 @@ func FetchEndpoints() {
 						p := map[string]string{v.Anchor: l}
 						IPv4List = append(IPv4List, p)
 					}
-					//IPv4List = append(IPv4List, parsedList...)
 				case v.Type == "ipv6":
-					IPv6List = append(IPv6List, parsedList...)
+					for _, l := range parsedList {
+						p := map[string]string{v.Anchor: l}
+						IPv6List = append(IPv6List, p)
+					}
 				case v.Type == "fqdn":
-					FQDNList = append(FQDNList, parsedList...)
+					for _, l := range parsedList {
+						p := map[string]string{v.Anchor: l}
+						FQDNList = append(FQDNList, p)
+					}
 				}
 
 				log.Debug("Found %s entry in list %s", log.Bold(strconv.Itoa(len(parsedList))), log.Bold(v.Endpoint))

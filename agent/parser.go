@@ -27,6 +27,11 @@ func Parse(lst []byte) []string {
 
 	stringList := string(lst)
 	addressList := strings.Split(stringList, "\n")
+	for k, v := range addressList {
+		if len(v) == 0 {
+			addressList = append(addressList[:k], addressList[k+1:]...)
+		}
+	}
 
 	return addressList
 }

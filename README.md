@@ -90,7 +90,7 @@ Any other type will throw an error
 
 ## URL Fetch
 
-By design fetch is done for every URL, every 10 seconds
+By design fetch is done for every Endpoint, every 10 seconds
 
 ## Custom Lists
 
@@ -163,4 +163,4 @@ Usage of minemeld-agent:
 
 ## Work in Progress
 
-- Anchor is supported only for IPv4 lists
+- IPv6 Address check is not implemented yet
