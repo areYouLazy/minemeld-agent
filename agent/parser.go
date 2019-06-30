@@ -8,8 +8,13 @@ import (
 
 //Parse turns a list of IP from Minemeld as []string or error
 func Parse(lst []byte) []string {
+	//convert byte-slice to string
 	stringList := string(lst)
+
+	//split string in lines
 	addressList := strings.Split(stringList, "\n")
+
+	//remove empty entries to prevent wildcard matches
 	for k, v := range addressList {
 		if len(v) == 0 {
 			addressList = append(addressList[:k], addressList[k+1:]...)
