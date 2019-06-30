@@ -6,7 +6,7 @@ import (
 
 //TODO: We can do patter parsing
 
-//Parse turns a list of IP from Minemeld as []string or error
+//Parse turns a list of IP from Endpoint as []string or error
 func Parse(lst []byte) []string {
 	//convert byte-slice to string
 	stringList := string(lst)
