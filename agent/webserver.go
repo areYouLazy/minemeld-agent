@@ -23,6 +23,7 @@ func WebServerInit() {
 	router.HandleFunc("/api/v1/check-ipv6/{address}/{anchor}", HandleCheckIPv6).Methods("GET")
 	router.HandleFunc("/api/v1/check-fqdn/{address}", HandleCheckFqdn).Methods("GET")
 	router.HandleFunc("/api/v1/check-fqdn/{address}/{anchor}", HandleCheckFqdn).Methods("GET")
+	router.HandleFunc("/api/v1/get-anchor-list", HandleAnchorList).Methods("GET")
 
 	router.Use(loggingMiddleware)
 
@@ -158,4 +159,11 @@ func HandleCheckFqdn(w http.ResponseWriter, r *http.Request) {
 
 	log.Debug(payload)
 	w.Write([]byte(payload))
+}
+
+//HandleAnchorList returns the current AnchorList as a JSON object
+func HandleAnchorList(w http.ResponseWriter, r *http.Request) {
+	res := GetAnchorListAsJSON()
+
+	w.Write(res)
 }

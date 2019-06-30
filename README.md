@@ -32,6 +32,8 @@ GET /api/v1/check-ipv4/1.1.1.1/anchor
 GET /api/v1/check-ipv6/::1/anchor
 
 GET /api/v1/check-fqdn/example.org/anchor
+
+GET /api/v1/get-anchor-list
 ```
 
 ## Installation
@@ -147,6 +149,10 @@ If you query without an anchor, the match is done against any list of that type
 root@localhost:> curl http://minemeld.example.org/api/v1/check-ipv4/192.168.1.1
 Address 192.168.1.1 is not in list
 ```
+
+### GetAnchorList
+
+The `GET` call to `/api/v1/get-anchor-list` can be used to obtain a list of all the anchor currently loaded from the urls.json file
 
 ## Help
 
