@@ -49,11 +49,11 @@ Go inside MineMeld-Agent folder and compile it
 
 ```bash
 root@localhost:> go build
-````
+```
 
-And you\'re ready to go
+And you\'re ready to go!
 
-MineMeld-Agent can run on the MineMeld machine itself, or in a separate linux machine, just make sure URLs in the urls.json file are resolvable (if you\'re using FQDN) and to use the `-fetch-insecure` flag if the endpoint does not provide a valid certificate.
+MineMeld-Agent can run on any machine capable of running [golang](https://golang.org/), just make sure URLs in the urls.json file are resolvable (if you\'re using FQDN) and to use the `-fetch-insecure` flag if the endpoint does not provide a valid certificate.
 
 By default MineMeld-Agent logs to stdout so you can check that everything is working file.
 You can than redirect logs to your preferred file with the `-log-output` flag
