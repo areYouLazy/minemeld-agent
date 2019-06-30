@@ -5,20 +5,6 @@ import (
 	"strings"
 )
 
-//TODO: Review and separate validation
-
-//Validate check if list output is valid
-func Validate(list []byte) bool {
-	errorString := regexp.MustCompile(`Unknown\sfeed`)
-
-	//if match is true, than web server response is NOT valid
-	if res := errorString.Match(list); res == true {
-		return false
-	}
-
-	return true
-}
-
 //TODO: We can do patter parsing
 
 //Parse turns a list of IP from Minemeld as []string or error
