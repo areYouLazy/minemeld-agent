@@ -9,10 +9,11 @@ This tool has been used in conjunction with an Application Firewall with HTTP Ca
 The AppFirewall queries the tool to know if the Source Public IP of a specific call is one of the Microsoft IP in the list provided by Minemeld.
 This is useful in cases where you cannot filter a NAT/Firewall Rules because it holds different services
 
-## Composition
+## Source Code Composition
 
 - Loader: this loads a urls.json file containing a list of URL to fetch
 - Fetcher: this takes URLs from Loader and fetch lists
+- Validator: this validate response from various endpoints
 - Parser: this parse URL List into a golang object
 - Checker: this checks if a given IP/FQDN is in a MineMeld list
 - WebServer: this exposes routines through API
