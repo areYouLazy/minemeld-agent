@@ -21,19 +21,26 @@ This is useful in cases where you cannot filter a NAT/Firewall Rules because it 
 ## WebServer API
 
 ```bash
-GET /api/v1/check-ipv4/1.1.1.1
+GET /api/v1/check-ipv4/{ipv4-address}
+> Query used to know if an ipv4 address is in one of the urls.json file lists
 
-GET /api/v1/check-ipv6/::1
+GET /api/v1/check-ipv6/{ipv6-address}
+> Query used to know if an ipv6 address is in one of the urls.json file lists
 
-GET /api/v1/check-fqdn/example.org
+GET /api/v1/check-fqdn/{fqdn-address}
+> Query used to know if a fqdn address is in one of the urls.json file lists
 
-GET /api/v1/check-ipv4/1.1.1.1/anchor
+GET /api/v1/check-ipv4/{ipv4-address/{anchor}
+> Query used to know if an ipv4 address is in one of the urls.json file lists with the given anchor
 
-GET /api/v1/check-ipv6/::1/anchor
+GET /api/v1/check-ipv6/{ipv6-address}/{anchor}
+> Query used to know if an ipv6 address is in one of the urls.json file lists with the given anchor
 
-GET /api/v1/check-fqdn/example.org/anchor
+GET /api/v1/check-fqdn/{fqdn-address}/{anchor}
+> Query used to know if a fqdn address is in one of the urls.json file lists with the given anchor
 
 GET /api/v1/get-anchor-list
+> Query used to get a list of all the anchor defined in the urls.json file
 ```
 
 ## Installation
