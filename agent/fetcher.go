@@ -11,17 +11,17 @@ import (
 )
 
 var (
-	//IPv4List exposes ipv4 fetched from MineMeld
+	//IPv4List exposes ipv4 fetched from Endpoint
 	IPv4List []map[string]string
 
-	//IPv6List exposes ipv4 fetched from MineMeld
+	//IPv6List exposes ipv4 fetched from Endpoint
 	IPv6List []map[string]string
 
-	//FQDNList exposes names fetched form MineMeld
+	//FQDNList exposes names fetched form Endpoint
 	FQDNList []map[string]string
 )
 
-//Fetch get list from minemeld url and returns request body
+//Fetch get list from endpoint url and returns request body
 func Fetch(url string) ([]byte, error) {
 	log.Info("Fetching list from %s", log.Bold(url))
 
@@ -56,7 +56,7 @@ func Fetch(url string) ([]byte, error) {
 	return body, nil
 }
 
-//FetchEndpoints routine to fetch lists from MineMeld
+//FetchEndpoints routine to fetch lists from Endpoint
 func FetchEndpoints() {
 	for {
 		//check urls.json for changes
@@ -68,9 +68,11 @@ func FetchEndpoints() {
 		log.Debug("Iterate Endpoints to fetch address list")
 		//iterate endpoints to fetch address
 		for _, v := range Endpoints {
+			//fetch endpoint url
 			lst, err := Fetch(v.Endpoint)
 			if err != nil {
 				log.Critical("%s", err)
+				//validate response befor submission
 			} else if res := Validate(lst); res == true {
 				log.Info("Parsing response from %s", log.Bold(v.Endpoint))
 				parsedList := Parse(lst)
@@ -95,7 +97,7 @@ func FetchEndpoints() {
 
 				log.Debug("Found %s entry in list %s", log.Bold(strconv.Itoa(len(parsedList))), log.Bold(v.Endpoint))
 			} else {
-				log.Warning("Validation failed for Endpoint %s", log.Bold(v.Endpoint))
+				log.Warning("Validation failed for Endpoint response %s", log.Bold(v.Endpoint))
 			}
 		}
 
