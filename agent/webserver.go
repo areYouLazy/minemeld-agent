@@ -165,5 +165,7 @@ func HandleCheckFqdn(w http.ResponseWriter, r *http.Request) {
 func HandleAnchorList(w http.ResponseWriter, r *http.Request) {
 	res := GetAnchorListAsJSON()
 
+	w.Header().Add("Content-Type", "application/json")
+
 	w.Write(res)
 }
