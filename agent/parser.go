@@ -21,5 +21,12 @@ func Parse(lst []byte) []string {
 		}
 	}
 
+	//remove comment entries, that starts with #
+	for k, v := range addressList {
+		if res := strings.HasPrefix(v, "#"); res == true {
+			addressList = append(addressList[:k], addressList[k+1:]...)
+		}
+	}
+
 	return addressList
 }
