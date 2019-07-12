@@ -48,10 +48,15 @@ func CheckIPv4(address, anchor string) bool {
 				}
 			}
 
-			//check if we have an anchor to match
-			if anchor != "" {
-				if anchor != k {
-					isInList = false
+			//if we have a match, check if we have an anchor to match
+			if isInList == true {
+				if anchor != "" {
+					if anchor != k {
+						isInList = false
+						log.Debug("Match removed because of missing anchor %s", log.Bold(anchor))
+					}
+				} else {
+					log.Debug("No anchor specified")
 				}
 			}
 		}
@@ -91,13 +96,17 @@ func CheckFQDN(address, anchor string) bool {
 				isInList = true
 			}
 
-			//check if we have an anchor to match
-			if anchor != "" {
-				if anchor != k {
-					isInList = false
+			//if we have a match, check if we have an anchor to match
+			if isInList == true {
+				if anchor != "" {
+					if anchor != k {
+						isInList = false
+						log.Debug("Match removed because of missing anchor %s", log.Bold(anchor))
+					}
+				} else {
+					log.Debug("No anchor specified")
 				}
 			}
-
 		}
 	}
 

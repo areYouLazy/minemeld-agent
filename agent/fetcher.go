@@ -97,7 +97,7 @@ func FetchEndpoints() {
 
 				log.Debug("Found %s entry in list %s", log.Bold(strconv.Itoa(len(parsedList))), log.Bold(v.Endpoint))
 			} else {
-				log.Warning("Validation failed for Endpoint response %s", log.Bold(v.Endpoint))
+				log.Warning("Validation failed for Endpoint %s response", log.Bold(v.Endpoint))
 			}
 		}
 
